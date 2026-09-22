@@ -1,0 +1,64 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Create account — Kadai</title>
+  <meta name="description" content="Create your Kadai account." />
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,500;9..144,600&display=swap" />
+  <link rel="stylesheet" href="css/tokens.css" />
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/layout.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/pages.css" />
+  <link rel="stylesheet" href="css/tailwind.css" />
+  <script type="module" src="js/main.js"></script>
+</head>
+<body class="overflow-x-hidden" data-page="register">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="site-shell">
+    <header class="site-header"></header>
+    <main id="main" class="site-main min-w-0">
+      <div class="auth-card">
+        <h1>Create account</h1>
+        <p class="auth-sub">One account for orders, addresses and your wishlist.</p>
+
+        <form class="js-register" novalidate>
+          <div class="field">
+            <label for="reg-name">Your name</label>
+            <input id="reg-name" name="name" type="text" autocomplete="name" required />
+            <p class="field-error" data-error-for="name"></p>
+          </div>
+          <div class="field">
+            <label for="reg-email">Email</label>
+            <input id="reg-email" name="email" type="email" autocomplete="email" required />
+            <p class="field-error" data-error-for="email"></p>
+          </div>
+          <div class="field js-password-field">
+            <label for="reg-password">Password</label>
+            <input id="reg-password" name="password" type="password" autocomplete="new-password" />
+            <p class="hint">At least 8 characters.</p>
+            <p class="field-error" data-error-for="password"></p>
+          </div>
+          <p class="form-banner js-form-error" role="alert" hidden></p>
+          <button type="submit" class="btn btn--block js-submit">Create account</button>
+        </form>
+
+        <p class="demo-auth-note js-demo-note" hidden>
+          Demo mode: accounts are device-local and passwordless — only your name and
+          email are kept, on this browser alone.
+        </p>
+
+        <p class="auth-alt">Already with us? <a href="login.html">Sign in</a></p>
+      </div>
+    </main>
+    <footer class="site-footer"></footer>
+  </div>
+</body>
+</html>
+
+

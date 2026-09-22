@@ -1,0 +1,124 @@
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1240 760" font-family="Archivo, Segoe UI, sans-serif">
+  <!-- KADAI — how Firebase powers your store (owner-friendly diagram) -->
+  <rect width="1240" height="760" fill="#FAF7F0"/>
+  <rect width="1240" height="14" fill="repeating-linear-gradient(90deg,#FAF7F0 0 24px,#D9A03F 24px 48px,#FAF7F0 48px 72px,#1F5C46 72px 96px)"/>
+
+  <text x="620" y="58" text-anchor="middle" font-size="30" font-weight="700" fill="#221D15">How your store works with Firebase</text>
+  <text x="620" y="84" text-anchor="middle" font-size="15" fill="#5F5749">Kadai · plain-language map · nothing here is hand-created — the website makes everything</text>
+
+  <!-- 1. Customer -->
+  <g>
+    <rect x="40" y="120" width="270" height="480" rx="12" fill="#FFFFFF" stroke="#E3DCCD"/>
+    <rect x="40" y="120" width="270" height="52" rx="12" fill="#173F32"/>
+    <rect x="40" y="150" width="270" height="22" fill="#173F32"/>
+    <text x="175" y="152" text-anchor="middle" font-size="18" font-weight="700" fill="#FAF7F0">1 · THE CUSTOMER</text>
+    <text x="175" y="172" text-anchor="middle" font-size="12" fill="#D9A03F">any phone or laptop browser</text>
+    <g font-size="14" fill="#221D15">
+      <rect x="64" y="196" width="222" height="40" rx="8" fill="#FAF7F0" stroke="#E3DCCD"/><text x="80" y="221">🏠  Home page</text>
+      <rect x="64" y="246" width="222" height="40" rx="8" fill="#FAF7F0" stroke="#E3DCCD"/><text x="80" y="271">🛒  Products &amp; search</text>
+      <rect x="64" y="296" width="222" height="40" rx="8" fill="#FAF7F0" stroke="#E3DCCD"/><text x="80" y="321">❤️  Wishlist</text>
+      <rect x="64" y="346" width="222" height="40" rx="8" fill="#FAF7F0" stroke="#E3DCCD"/><text x="80" y="371">🧺  Basket &amp; checkout</text>
+      <rect x="64" y="396" width="222" height="40" rx="8" fill="#FAF7F0" stroke="#E3DCCD"/><text x="80" y="421">📦  My orders</text>
+      <rect x="64" y="446" width="222" height="40" rx="8" fill="#FAF7F0" stroke="#E3DCCD"/><text x="80" y="471">👤  Sign in / register</text>
+    </g>
+    <text x="175" y="530" text-anchor="middle" font-size="12.5" fill="#5F5749">Your proof it works: your</text>
+    <text x="175" y="548" text-anchor="middle" font-size="12.5" fill="#5F5749">Firebase already shows 3</text>
+    <text x="175" y="566" text-anchor="middle" font-size="12.5" fill="#5F5749">accounts that registered here.</text>
+    <text x="175" y="590" text-anchor="middle" font-size="12.5" font-weight="600" fill="#1F5C46">users collection = 3 documents ✓</text>
+  </g>
+
+  <!-- 2. The website -->
+  <g>
+    <rect x="360" y="120" width="270" height="480" rx="12" fill="#FFFFFF" stroke="#E3DCCD"/>
+    <rect x="360" y="120" width="270" height="52" rx="12" fill="#B4472B"/>
+    <rect x="360" y="150" width="270" height="22" fill="#B4472B"/>
+    <text x="495" y="152" text-anchor="middle" font-size="18" font-weight="700" fill="#FAF7F0">2 · THE WEBSITE (code)</text>
+    <text x="495" y="172" text-anchor="middle" font-size="12" fill="#F2D7D0">already built &amp; tested — runs the shop</text>
+    <g font-size="13.5" fill="#221D15">
+      <rect x="384" y="196" width="222" height="58" rx="8" fill="#FAF7F0" stroke="#E3DCCD"/>
+      <text x="400" y="219" font-weight="700">Show products</text>
+      <text x="400" y="238" fill="#5F5749" font-size="12">asks Firebase for the catalog</text>
+      <rect x="384" y="266" width="222" height="58" rx="8" fill="#FAF7F0" stroke="#E3DCCD"/>
+      <text x="400" y="289" font-weight="700">Basket &amp; wishlist</text>
+      <text x="400" y="308" fill="#5F5749" font-size="12">keeps each customer's picks</text>
+      <rect x="384" y="336" width="222" height="58" rx="8" fill="#FAF7F0" stroke="#E3DCCD"/>
+      <text x="400" y="359" font-weight="700">Checkout</text>
+      <text x="400" y="378" fill="#5F5749" font-size="12">saves the order as "pay on delivery"</text>
+      <rect x="384" y="406" width="222" height="58" rx="8" fill="#FAF7F0" stroke="#E3DCCD"/>
+      <text x="400" y="429" font-weight="700">Accounts</text>
+      <text x="400" y="448" fill="#5F574" font-size="12" fill="#5F5749">sign-in, addresses, order history</text>
+      <rect x="384" y="476" width="222" height="58" rx="8" fill="#FAF7F0" stroke="#E3DCCD"/>
+      <text x="400" y="499" font-weight="700">Admin console</text>
+      <text x="400" y="518" fill="#5F5749" font-size="12">YOUR workbench — add &amp; manage everything</text>
+    </g>
+    <text x="495" y="568" text-anchor="middle" font-size="12.5" fill="#5F5749">It creates every collection automatically</text>
+    <text x="495" y="586" text-anchor="middle" font-size="12.5" fill="#5F5749">the first time data is saved.</text>
+  </g>
+
+  <!-- 3. Firebase -->
+  <g>
+    <rect x="680" y="120" width="520" height="480" rx="12" fill="#FFFFFF" stroke="#E3DCCD"/>
+    <rect x="680" y="120" width="520" height="52" rx="12" fill="#1F5C46"/>
+    <rect x="680" y="150" width="520" height="22" fill="#1F5C46"/>
+    <text x="940" y="152" text-anchor="middle" font-size="18" font-weight="700" fill="#FAF7F0">3 · FIREBASE (your shop's back office)</text>
+    <text x="940" y="172" text-anchor="middle" font-size="12" fill="#E4EDE6">Google's cloud · free Spark plan · kadai-36aa6</text>
+
+    <!-- Auth -->
+    <rect x="704" y="192" width="472" height="64" rx="8" fill="#F1EBDE"/>
+    <text x="722" y="217" font-size="14.5" font-weight="700" fill="#221D15">🔐 Authentication — the ID desk</text>
+    <text x="722" y="238" font-size="12" fill="#5F5749">checks emails &amp; passwords at the door. You enabled Email/Password ✓</text>
+
+    <!-- Firestore -->
+    <rect x="704" y="268" width="472" height="170" rx="8" fill="#F1EBDE"/>
+    <text x="722" y="293" font-size="14.5" font-weight="700" fill="#221D15">🗄️ Firestore — the storeroom shelves (sheets)</text>
+    <g font-size="12" fill="#221D15">
+      <rect x="722" y="306" width="104" height="26" rx="6" fill="#FFFFFF" stroke="#E3DCCD"/><text x="730" y="323">products</text>
+      <rect x="834" y="306" width="104" height="26" rx="6" fill="#FFFFFF" stroke="#E3DCCD"/><text x="842" y="323">categories</text>
+      <rect x="946" y="306" width="104" height="26" rx="6" fill="#FFFFFF" stroke="#E3DCCD"/><text x="954" y="323">orders</text>
+      <rect x="722" y="340" width="104" height="26" rx="6" fill="#FFFFFF" stroke="#E3DCCD"/><text x="730" y="357">users</text>
+      <rect x="834" y="340" width="104" height="26" rx="6" fill="#FFFFFF" stroke="#E3DCCD"/><text x="842" y="357">carts</text>
+      <rect x="946" y="340" width="104" height="26" rx="6" fill="#FFFFFF" stroke="#E3DCCD"/><text x="954" y="357">wishlists</text>
+      <rect x="722" y="374" width="104" height="26" rx="6" fill="#FFFFFF" stroke="#E3DCCD"/><text x="730" y="391">reviews</text>
+      <rect x="834" y="374" width="104" height="26" rx="6" fill="#FFFFFF" stroke="#E3DCCD"/><text x="842" y="391">coupons</text>
+      <rect x="946" y="374" width="104" height="26" rx="6" fill="#FFFFFF" stroke="#E3DCCD"/><text x="954" y="391">addresses</text>
+    </g>
+    <text x="722" y="425" font-size="12" fill="#5F5749">users ✓ exists (3 accounts). products appears when YOU add the first product</text>
+    <text x="722" y="425" font-size="12" fill="#5F5749"> </text>
+    <text x="722" y="424" font-size="0.1" fill="none">.</text>
+    <text x="722" y="444" font-size="12" font-weight="600" fill="#A03D23">via Admin console → Products → "Add your first product"</text>
+
+    <!-- Storage -->
+    <rect x="704" y="450" width="472" height="54" rx="8" fill="#F1EBDE"/>
+    <text x="722" y="474" font-size="14.5" font-weight="700" fill="#221D15">🖼️ Storage — the photo album</text>
+    <text x="722" y="494" font-size="12" fill="#5F5749">product photos you upload from the admin console (needs Blaze plan — optional)</text>
+
+    <!-- Rules -->
+    <rect x="704" y="516" width="472" height="64" rx="8" fill="#173F32"/>
+    <text x="722" y="541" font-size="14.5" font-weight="700" fill="#FAF7F0">🛡️ Security Rules — the guard at the gate</text>
+    <text x="722" y="561" font-size="12" fill="#E4EDE6">strangers can only LOOK at products; customers touch only their OWN data;</text>
+    <text x="722" y="575" font-size="12" fill="#E4EDE6">only role:admin (you) can change products &amp; orders. You published these ✓</text>
+  </g>
+
+  <!-- Arrows -->
+  <g stroke="#1F5C46" stroke-width="3" fill="none" marker-end="url(#arr)">
+    <line x1="312" y1="300" x2="352" y2="300"/>
+    <line x1="632" y1="300" x2="672" y2="300"/>
+    <line x1="940" y1="604" x2="940" y2="640"/>
+  </g>
+  <defs>
+    <marker id="arr" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1F5C46"/>
+    </marker>
+  </defs>
+  <text x="332" y="288" text-anchor="middle" font-size="12" fill="#1F5C46" font-weight="600">clicks</text>
+  <text x="652" y="288" text-anchor="middle" font-size="12" fill="#1F5C46" font-weight="600">reads / saves</text>
+
+  <!-- You (admin) strip -->
+  <rect x="40" y="640" width="1160" height="80" rx="12" fill="#D9A03F"/>
+  <text x="620" y="672" text-anchor="middle" font-size="17" font-weight="700" fill="#221D15">4 · YOU — the shop owner (admin)</text>
+  <text x="620" y="698" text-anchor="middle" font-size="13.5" fill="#221D15">Store → account icon → Admin console: add products · set stock · process orders · approve reviews · make coupons</text>
+  <text x="620" y="716" text-anchor="middle" font-size="12" fill="#5F4A12">your one click right now: open the store → account menu → Admin console → Products → add your first product (the products collection will appear on its own)</text>
+</svg>
+
+

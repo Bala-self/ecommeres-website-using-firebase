@@ -1,0 +1,12 @@
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Kadai">
+  <!-- Awning-stripe mark: scalloped shop awning over the wordmark K -->
+  <rect width="64" height="64" rx="12" fill="#FAF7F0"/>
+  <!-- awning: three scallops -->
+  <path d="M8 18 Q16 10 24 18 Q32 10 40 18 Q48 10 56 18 L56 26 Q52 30 48 26 Q44 30 40 26 Q36 30 32 26 Q28 30 24 26 Q20 30 16 26 Q12 30 8 26 Z" fill="#1F5C46"/>
+  <path d="M8 18 Q16 10 24 18 L24 20 Q16 12 8 20 Z" fill="#D9A03F" opacity="0.9"/>
+  <!-- K -->
+  <path d="M20 34 h7 v12 l10 -12 h8 L34.5 46.5 46 58 h-8.5 L27 46 v12 h-7 Z" fill="#221D15" transform="translate(0,-9) scale(0.82) translate(6,12)"/>
+</svg>
+
+

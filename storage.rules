@@ -1,0 +1,41 @@
+
+rules_version = '2';
+
+// ============================================================
+// KADAI — Storage security rules (§22)
+// Uploads: admins only, product imagery folder, type + size capped.
+// Reads: public — product images are displayed on the storefront
+// (a URL is not an authorization mechanism; writes are the boundary).
+// Deploy: firebase deploy --only storage
+// ============================================================
+
+service firebase.storage {
+  match /b/{bucket}/o {
+
+    function signedIn() {
+      return request.auth != null;
+    }
+    // Admin check via Firestore profile role
+    function isAdmin() {
+      return signedIn() &&
+        firestore.get(/databases/(default)/documents/users/$(request.auth.uid)).data.role == 'admin';
+    }
+    function isProductImage() {
+      return request.resource.contentType.matches('image/(jpeg|png|webp)')
+             && request.resource.size < 2 * 1024 * 1024; // 2 MB
+    }
+
+    match /products/{fileName} {
+      allow read: if true;
+      allow write: if isAdmin() && (request.resource == null || isProductImage());
+      allow delete: if isAdmin();
+    }
+
+    // deny everything else
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+  }
+}
+
+

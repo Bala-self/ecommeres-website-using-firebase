@@ -1,0 +1,6 @@
+
+/* Tailwind utility layer for responsive layout enhancements.
+   The existing CSS files provide the component design system and reset. */
+@tailwind utilities;
+
+

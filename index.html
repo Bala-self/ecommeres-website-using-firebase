@@ -1,0 +1,97 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Kadai — shop products across categories</title>
+  <meta name="description" content="Kadai is an online marketplace for discovering products across categories, with convenient delivery and cash-on-delivery ordering across Chennai." />
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,500;9..144,600&display=swap" />
+  <link rel="stylesheet" href="css/tokens.css" />
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/layout.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/pages.css" />
+  <link rel="stylesheet" href="css/tailwind.css" />
+  <script type="module" src="js/main.js"></script>
+</head>
+<body class="overflow-x-hidden" data-page="home">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="site-shell">
+    <header class="site-header"></header>
+    <main id="main" class="site-main min-w-0">
+      <div class="container min-w-0">
+
+        <section class="hero" aria-labelledby="hero-title">
+          <div class="hero__copy">
+            <p class="hero__kicker">Your online marketplace</p>
+            <h1 id="hero-title">Everything you need, all in one place.</h1>
+            <p class="hero__lede">
+              Discover useful products across categories, compare your options,
+              and order what you need from the comfort of home.
+            </p>
+            <div class="hero__actions">
+              <a class="btn" href="products.html">Shop now</a>
+              <a class="btn btn--secondary" href="#how">How it works</a>
+            </div>
+          </div>
+          <div class="hero__media">
+            <video autoplay muted loop playsinline preload="auto" aria-label="Kadai product showcase">
+              <source src="assets/products/0922(1).webm" type="video/webm" />
+              Your browser does not support embedded video.
+            </video>
+          </div>
+        </section>
+
+        <div class="trust-strip" aria-label="What you can count on">
+          <div><strong>Cash on delivery.</strong> Pay when it reaches you.</div>
+          <div><strong>GST included.</strong> The price you see is the price you pay.</div>
+          <div><strong>7-day returns.</strong> Simple returns within 7 days.</div>
+        </div>
+
+        <section class="home-section" aria-labelledby="how-title" id="how">
+          <header><h2 id="how-title">Shopping made simple</h2></header>
+          <div class="how-row grid-cols-1 md:grid-cols-3">
+            <div class="how-step">
+              <h3>Choose your products</h3>
+              <p>Browse by category or search for exactly what you need. Product availability is clearly shown.</p>
+            </div>
+            <div class="how-step">
+              <h3>Place your order</h3>
+              <p>Review your cart, add your delivery address, and place your order in a few simple steps.</p>
+            </div>
+            <div class="how-step">
+              <h3>Get it delivered</h3>
+              <p>Pay by cash on delivery when your order reaches you. Returns are accepted within 7 days.</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="home-section" aria-labelledby="categories-title">
+          <header><h2 id="categories-title">Shop by category</h2></header>
+          <div class="category-grid js-categories grid-cols-2 sm:grid-cols-3 lg:grid-cols-4">
+            <!-- categories with real counts, by page module -->
+          </div>
+        </section>
+
+        <section class="home-section" aria-labelledby="featured-title">
+          <header>
+            <h2 id="featured-title">Featured products</h2>
+            <a href="products.html">View all products →</a>
+          </header>
+          <div class="js-featured">
+            <!-- skeleton swapped for featured products -->
+          </div>
+        </section>
+
+      </div>
+    </main>
+    <footer class="site-footer"></footer>
+  </div>
+</body>
+</html>
+
+

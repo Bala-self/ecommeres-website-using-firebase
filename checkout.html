@@ -1,0 +1,49 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Checkout — Kadai</title>
+  <meta name="description" content="Confirm your delivery address and place your order. Cash on delivery." />
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,500;9..144,600&display=swap" />
+  <link rel="stylesheet" href="css/tokens.css" />
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/layout.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/pages.css" />
+  <link rel="stylesheet" href="css/tailwind.css" />
+  <script type="module" src="js/main.js"></script>
+</head>
+<body class="overflow-x-hidden" data-page="checkout">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="site-shell">
+    <header class="site-header"></header>
+    <main id="main" class="site-main min-w-0">
+      <div class="container min-w-0">
+        <nav class="breadcrumbs" aria-label="Breadcrumb">
+          <ol><li><a href="cart.html">Cart</a></li><li aria-current="page">Checkout</li></ol>
+        </nav>
+        <div class="page-head">
+          <h1>Checkout</h1>
+          <p class="page-head__lede">Cash on delivery — you pay when the order reaches your door.</p>
+        </div>
+        <ol class="steps" aria-label="Checkout steps">
+          <li aria-current="step">Delivery address</li>
+          <li>Review &amp; place order</li>
+          <li>Order confirmation</li>
+        </ol>
+        <div class="js-checkout-root">
+          <div class="region-loading" role="status"><span class="spinner" aria-hidden="true"></span>Preparing checkout…</div>
+        </div>
+      </div>
+    </main>
+    <footer class="site-footer"></footer>
+  </div>
+</body>
+</html>
+
+
