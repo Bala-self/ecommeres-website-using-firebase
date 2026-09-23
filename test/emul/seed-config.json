@@ -1,0 +1,7 @@
+{
+ "firestore": {
+  "rules": "seed.rules",
+  "indexes": "../../firestore.indexes.json"
+ },
+ "auth": {}
+}

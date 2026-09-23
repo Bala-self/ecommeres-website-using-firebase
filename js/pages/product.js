@@ -13,6 +13,7 @@ import { toast } from "../components/toast.js";
 import { bindCardActions } from "./home.js";
 import { currentUser, authReady } from "../services/auth.js";
 import { listPublished, submit as submitReview } from "../services/reviews.js";
+import { pulse } from "../core/motion.js";
 
 let product = null;
 
@@ -166,6 +167,7 @@ function wireBuyControls() {
     try {
       const cart = await import("../services/cart.js");
       await cart.addToCart(product.id, qty);
+      pulse(e.target);
       toast(`Added ${qty} to your cart.`, "ok");
     } catch {
       toast("Couldn’t add that — try again.", "error");
@@ -181,6 +183,7 @@ function wireBuyControls() {
       const added = await wl.toggle(product.id);
       btn.setAttribute("aria-pressed", String(added));
       btn.setAttribute("aria-label", added ? "Remove from wishlist" : "Add to wishlist");
+      pulse(btn);
       toast(added ? "Saved to your wishlist." : "Removed from wishlist.", "ok");
     } catch {
       toast("Couldn’t update the wishlist.", "error");
@@ -320,5 +323,4 @@ async function renderRelated() {
     region.closest(".pdp-section").hidden = true;
   }
 }
-
 

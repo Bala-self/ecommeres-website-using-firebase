@@ -79,6 +79,10 @@
   /* ---- Motion (feedback only; reduced-motion honored) -------- */
   --transition-fast: 120ms ease;
   --transition-base: 200ms ease;
+  --motion-ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --motion-ease-standard: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --motion-reveal-duration: 420ms;
+  --motion-reveal-distance: 14px;
 
   /* ---- Z-index ----------------------------------------------- */
   --z-sticky: 100;
@@ -97,5 +101,4 @@
     transition-duration: 0.01ms !important;
   }
 }
-
 

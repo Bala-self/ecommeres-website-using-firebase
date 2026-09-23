@@ -12,11 +12,52 @@ import { renderHeader, renderFooter, bindHeaderAuth, refreshCounts } from "./com
 import { initAuth, currentUser, subscribe as onAuth } from "./services/auth.js";
 import { mergeGuestCartOnLogin, subscribe as onCart } from "./services/cart.js";
 import { mergeGuestWishlistOnLogin } from "./services/wishlist.js";
-import { listActive } from "./services/categories.js";
+import { initMotion } from "./core/motion.js";
+import { showPendingCouponNotice } from "./components/couponNotice.js";
+import { initPreloader } from "./components/preloader.js";
 
-let categoriesPromise;
+function bindPageTransitions() {
+  let navigating = false;
+  document.addEventListener("click", (event) => {
+    if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+    const link = event.target.closest("a[href]");
+    if (!link || link.target || link.hasAttribute("download") || link.getAttribute("aria-disabled") === "true") return;
+
+    const next = new URL(link.href, window.location.href);
+    if (!["http:", "https:", "file:"].includes(next.protocol)) return;
+    const sameSite = next.origin === window.location.origin;
+    const sameDocument = next.pathname === window.location.pathname && next.search === window.location.search;
+    if (!sameSite || sameDocument || navigating) return;
+
+    event.preventDefault();
+    navigating = true;
+    document.documentElement.classList.add("is-leaving");
+    window.setTimeout(() => { window.location.href = next.href; }, 160);
+  });
+}
+
+function initDesktopHeroVideo() {
+  const video = document.querySelector(".js-hero-video");
+  const source = video?.querySelector("source[data-src]");
+  if (!video || !source) return;
+
+  const desktop = window.matchMedia("(min-width: 768px)");
+  const loadVideo = () => {
+    if (source.src) return;
+    source.src = source.dataset.src;
+    video.load();
+  };
+
+  if (desktop.matches) loadVideo();
+  desktop.addEventListener?.("change", (event) => {
+    if (event.matches) loadVideo();
+  });
+}
 
 async function boot() {
+  const dismissPreloader = initPreloader();
+  initDesktopHeroVideo();
+
   // 1 — environment (never throws; offline → honest empty states).
   // NOTE: no local/demo product data exists by design — the catalog
   // lives ONLY in Firebase (user requirement, audit round 2).
@@ -27,12 +68,9 @@ async function boot() {
   initAuth();
 
   // 4 — shell + status region
+  bindPageTransitions();
   initToastRegion();
-  categoriesPromise = listActive().catch((e) => {
-    console.warn("[kadai] categories unavailable:", e?.message || e?.code || e, e);
-    return [];
-  });
-  renderHeader(categoriesPromise);
+  renderHeader();
   renderFooter();
   bindHeaderAuth();
   bindMergeOnAuth();
@@ -65,6 +103,10 @@ async function boot() {
       }
     }
   }
+
+  initMotion();
+  showPendingCouponNotice();
+  dismissPreloader();
 
   console.info(`[kadai] boot complete · env=${env.mode} (${env.reason})`);
 }
@@ -102,5 +144,3 @@ if (document.readyState === "loading") {
 } else {
   boot();
 }
-
-

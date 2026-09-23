@@ -11,6 +11,7 @@ import { listActive as listCategories } from "../services/categories.js";
 import { productCard } from "../components/productCard.js";
 import { skeletonGrid, errorState } from "../components/states.js";
 import { escapeHtml } from "../core/dom.js";
+import { pulse } from "../core/motion.js";
 
 export async function init() {
   renderCategories();
@@ -64,6 +65,7 @@ export function bindCardActions(scope) {
       try {
         const cart = await import("../services/cart.js");
         await cart.addToCart(id, 1);
+        pulse(btn);
         const { toast } = await import("../components/toast.js");
         toast("Added to your cart.", "ok");
       } catch {
@@ -85,6 +87,7 @@ export function bindCardActions(scope) {
         const added = await wl.toggle(id);
         btn.setAttribute("aria-pressed", String(added));
         btn.setAttribute("aria-label", added ? "Remove from wishlist" : "Add to wishlist");
+        pulse(btn);
         const { toast } = await import("../components/toast.js");
         toast(added ? "Saved to your wishlist." : "Removed from wishlist.", "ok");
       } catch {
@@ -94,5 +97,4 @@ export function bindCardActions(scope) {
     });
   });
 }
-
 

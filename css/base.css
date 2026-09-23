@@ -22,6 +22,140 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+/* Startup video layer. It is removed after boot or by its safety timeout. */
+.site-preloader {
+  position: fixed;
+  inset: 0;
+  z-index: calc(var(--z-dialog) + 10);
+  display: grid;
+  place-items: center;
+  background: var(--green-900);
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 280ms var(--motion-ease-out), visibility 280ms linear;
+}
+.site-preloader.is-done {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+.site-preloader__inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+  color: var(--paper);
+  text-align: center;
+}
+.site-preloader__video {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 0;
+  background: rgba(250, 247, 240, 0.08);
+}
+.site-preloader__label {
+  position: absolute;
+  z-index: 1;
+  bottom: clamp(24px, 8vh, 64px);
+  left: 50%;
+  transform: translateX(-50%);
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-md);
+  background: rgba(23, 63, 50, 0.78);
+  font-size: var(--text-sm);
+  color: rgba(250, 247, 240, 0.78);
+  white-space: nowrap;
+}
+
+/* Dedicated mobile alignment for preloader (<= 767px) */
+@media (max-width: 767px) {
+  .site-preloader {
+    background: #262c31; /* Seamlessly matches video background tone */
+    padding-inline: var(--space-4);
+    padding-block: max(env(safe-area-inset-top, 0px), var(--space-4)) max(env(safe-area-inset-bottom, 0px), var(--space-6));
+  }
+
+  .site-preloader__inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-5);
+    width: 100%;
+    height: 100%;
+  }
+
+  .site-preloader__video {
+    position: relative;
+    inset: auto;
+    width: 100%;
+    max-width: 440px;
+    height: auto;
+    max-height: 52vh;
+    object-fit: contain;
+    object-position: center;
+    background: transparent;
+  }
+
+  .site-preloader__label {
+    position: relative;
+    inset: auto;
+    transform: none;
+    bottom: auto;
+    left: auto;
+    margin-top: 0;
+    padding: var(--space-2) var(--space-4);
+    background: rgba(250, 247, 240, 0.12);
+    border: 1px solid rgba(250, 247, 240, 0.2);
+    border-radius: var(--radius-md);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    color: var(--paper);
+    font-size: var(--text-sm);
+    letter-spacing: 0.02em;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  }
+}
+
+@media (max-width: 767px) and (max-height: 520px) {
+  .site-preloader__inner {
+    gap: var(--space-3);
+  }
+  .site-preloader__video {
+    max-height: 65vh;
+  }
+  .site-preloader__label {
+    padding: var(--space-1) var(--space-3);
+    font-size: var(--text-xs);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-preloader { transition: none; }
+}
+
+/* The shell arrives quickly so the page feels ready without delaying use. */
+.site-shell {
+  animation: page-arrive 360ms var(--motion-ease-out) both;
+  transition: opacity 180ms var(--motion-ease-out), transform 180ms var(--motion-ease-out);
+}
+
+html.is-leaving .site-shell {
+  opacity: 0;
+  transform: translateY(-4px);
+}
+
+@keyframes page-arrive {
+  from { opacity: 0; transform: translateY(5px); }
+  to { opacity: 1; transform: none; }
+}
+
 img, svg, video { display: block; max-width: 100%; }
 input, button, textarea, select { font: inherit; color: inherit; }
 
@@ -83,10 +217,13 @@ a:hover { color: var(--green-900); }
   letter-spacing: 0.02em;
   cursor: pointer;
   text-decoration: none;
-  transition: background-color var(--transition-fast), border-color var(--transition-fast);
+  transition: background-color var(--transition-fast), border-color var(--transition-fast),
+    color var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
 }
-.btn:hover { background: var(--green-900); border-color: var(--green-900); color: var(--paper); }
+.btn:hover { background: var(--green-900); border-color: var(--green-900); color: var(--paper); transform: translateY(-1px); box-shadow: 0 3px 8px rgba(34, 29, 21, 0.12); }
+.btn:active { transform: translateY(0) scale(0.98); box-shadow: none; }
 .btn[disabled], .btn[aria-disabled="true"] { opacity: 0.5; cursor: not-allowed; }
+.btn[disabled]:hover, .btn[aria-disabled="true"]:hover { transform: none; box-shadow: none; }
 
 .btn--secondary {
   background: transparent;
@@ -130,7 +267,9 @@ a:hover { color: var(--green-900); }
   color: var(--terracotta);
   cursor: pointer;
 }
-.icon-btn:hover { background: var(--paper-deep); }
+.icon-btn { transition: background-color var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast), transform var(--transition-fast); }
+.icon-btn:hover { background: var(--paper-deep); transform: translateY(-1px); }
+.icon-btn:active { transform: scale(0.94); }
 .icon-btn[aria-pressed="true"] { color: var(--paper); background: var(--terracotta); border-color: var(--terracotta); }
 
 /* ---- Forms -------------------------------------------------- */
@@ -150,6 +289,12 @@ a:hover { color: var(--green-900); }
 .field input:focus, .field select:focus, .field textarea:focus {
   outline: 2px solid var(--green-700);
   outline-offset: 0;
+}
+.field input, .field select, .field textarea {
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast), background-color var(--transition-fast);
+}
+.field input:focus, .field select:focus, .field textarea:focus {
+  box-shadow: 0 0 0 3px rgba(31, 92, 70, 0.12);
 }
 .field input[aria-invalid="true"], .field select[aria-invalid="true"] { border-color: var(--error); }
 
@@ -285,4 +430,37 @@ a:hover { color: var(--green-900); }
 .toast--error { background: var(--error); }
 .toast--ok { background: var(--green-900); }
 
+/* Shared arrival/reveal state. JS only adds this class to content that is
+   present or inserted later; all motion remains transform/opacity based. */
+.motion-reveal {
+  opacity: 0;
+  transform: translateY(var(--motion-reveal-distance));
+  transition: opacity var(--motion-reveal-duration) var(--motion-ease-out),
+    transform var(--motion-reveal-duration) var(--motion-ease-out);
+  transition-delay: var(--motion-delay, 0ms);
+}
+.motion-reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+.motion-image {
+  opacity: 0;
+  transition: opacity 320ms var(--motion-ease-out);
+}
+.motion-image.is-loaded { opacity: 1; }
 
+@keyframes motion-pop {
+  50% { transform: scale(1.1); }
+}
+.motion-pop { animation: motion-pop 260ms var(--motion-ease-out); }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .site-shell { animation: none; transition: none; }
+  .motion-reveal, .motion-reveal.is-visible, .motion-image, .motion-image.is-loaded {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .motion-pop { animation: none; }
+}

@@ -29,7 +29,7 @@ const ACCOUNT_LINKS = () => {
     <button type="button" class="menu__signout js-signout">Sign out</button>`;
 };
 
-export function renderHeader(categoriesPromise) {
+export function renderHeader() {
   const header = document.querySelector(".site-header");
   if (!header) return;
 
@@ -43,6 +43,7 @@ export function renderHeader(categoriesPromise) {
       </button>
 
       <a class="brand shrink-0" href="index.html" aria-label="Kadai — home">
+        <img class="brand__logo" src="assets/kadai-logo.png" alt="" width="36" height="36" />
         <span class="brand__name">Kadai</span>
         <span class="brand__tag" lang="ta">கடை</span>
       </a>
@@ -85,6 +86,7 @@ export function renderHeader(categoriesPromise) {
     const open = toggle.getAttribute("aria-expanded") === "true";
     toggle.setAttribute("aria-expanded", String(!open));
     nav.classList.toggle("is-open", !open);
+    toggle.classList.toggle("is-open", !open);
   });
 
   header.querySelector(".js-signout")?.addEventListener("click", async () => {
@@ -107,22 +109,16 @@ export function renderHeader(categoriesPromise) {
     }
   });
 
-  // categories row (Firebase-driven; empty when catalog not reachable)
-  categoriesPromise.then((cats) => {
-    const list = header.querySelector(".js-nav-list");
-    if (!list) return;
-    const here = new URLSearchParams(location.search);
-    const currentCategory = here.get("category");
-    const currentPath = location.pathname.split("/").pop() || "index.html";
+  // Keep the primary navigation focused on the two top-level destinations.
+  const list = header.querySelector(".js-nav-list");
+  const here = new URLSearchParams(location.search);
+  const currentPath = location.pathname.split("/").pop() || "index.html";
+  if (list) {
     list.innerHTML = `
       <li><a href="index.html" ${currentPath === "index.html" ? 'aria-current="page"' : ""}>Home</a></li>
-      <li><a href="products.html" ${currentPath === "products.html" && !currentCategory && !here.get("q") ? 'aria-current="page"' : ""}>All products</a></li>
-      ${cats.map((c) => `
-        <li><a href="products.html?category=${escapeHtml(c.slug)}" ${
-          currentPath === "products.html" && currentCategory === c.slug ? 'aria-current="page"' : ""
-        }>${escapeHtml(c.name)}</a></li>`).join("")}
+      <li><a href="products.html" ${currentPath === "products.html" && !here.get("q") ? 'aria-current="page"' : ""}>All products</a></li>
     `;
-  });
+  }
 
   refreshCounts();
 }
@@ -200,5 +196,3 @@ export function bindHeaderAuth() {
   onCart(refreshCounts);
   import("../services/wishlist.js").then(({ subscribe }) => subscribe(refreshCounts));
 }
-
-

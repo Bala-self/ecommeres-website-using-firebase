@@ -11,6 +11,7 @@ import { login, isDemoAuth } from "../services/auth.js";
 import { validateForm, validators, paintFieldErrors, clearFieldErrors } from "../core/validate.js";
 import { friendlyAuthError } from "../components/states.js";
 import { toast } from "../components/toast.js";
+import { markCouponNoticeForNextPage } from "../components/couponNotice.js";
 import { cartCount } from "../services/cart.js";
 
 function nextHref() {
@@ -47,6 +48,7 @@ export async function init() {
       // Guest cart/wishlist merge is handled centrally in main.js on the
       // auth event (single merge caller — audit round 2 fix); the
       // destination page's boot also re-checks it.
+      markCouponNoticeForNextPage();
       toast("Signed in.", "ok");
       window.location.href = nextHref();
     } catch (err) {
@@ -57,5 +59,4 @@ export async function init() {
     }
   });
 }
-
 

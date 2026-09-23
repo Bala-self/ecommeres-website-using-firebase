@@ -1,21 +1,26 @@
-
 rules_version = '2';
 
 // ============================================================
 // KADAI — Firestore security rules
-// The ONLY authorization layer of this application (§21).
+// The ONLY authorization layer of this application.
 // Deploy: firebase deploy --only firestore:rules
 // ------------------------------------------------------------
 // Model:
-//   PUBLIC        read active products + categories
-//   CUSTOMER      own profile, addresses, cart, wishlist, orders (read)
-//                 may CREATE orders for themselves (COD request flow)
+//   PUBLIC        read active products + categories + active coupons
+//   CUSTOMER      own profile, addresses, cart, wishlist, orders (read);
+//                 may CREATE order requests for themselves, with every
+//                 amount re-validated HERE against the live catalog
+//                 (price, stock, shipping, coupon — see the helpers
+//                 below); may CANCEL their own order while it is
+//                 still 'placed'
 //   ADMIN         manage products, categories, coupons, reviews,
 //                 order statuses; read all orders
-// NOTE (§39): order financial totals are computed client-side in this
-// release — a documented [SECURITY GAP — BACKEND VALIDATION REQUIRED]
-// before any online-payment launch. Rules constrain WHO can write an
-// order, not the correctness of the amounts.
+//
+// FREE-TIER NOTE: order financials are validated in rules (get() reads),
+// not in a Cloud Function — this keeps the project on the free Spark
+// plan. Repeated get() calls in one request are cached (one read per
+// document, not per call), so this adds only a few reads per placed
+// order — negligible against the free daily allowance.
 // ============================================================
 
 service cloud.firestore {
@@ -32,6 +37,81 @@ service cloud.firestore {
       return signedIn() &&
         exists(/databases/$(database)/documents/users/$(request.auth.uid)) &&
         get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin';
+    }
+
+    // Document getters (get() is cached per request — repeated calls are
+    // free reads, not extra traffic).
+    function productData(productId) {
+      return get(/databases/$(database)/documents/products/$(productId)).data;
+    }
+    function couponData(code) {
+      return get(/databases/$(database)/documents/coupons/$(code)).data;
+    }
+
+    // ---------- order money helpers (must mirror js/core/pricing.js) ----------
+    // Flat delivery fee and free-shipping threshold, in paise.
+    // KEEP IN SYNC with shippingConfig in js/data/business-config.js.
+    function flatShippingPaise() {
+      return 4900; // ₹49
+    }
+    function freeShippingFromPaise() {
+      return 99900; // free delivery at ₹999+
+    }
+
+    // One order line is honest iff the product exists, is active, and the
+    // line's price/quantity match the live catalog right now.
+    function orderLineOk(line) {
+      return line.productId is string
+        && line.name is string
+        && line.priceAtPurchasePaise is int
+        && line.priceAtPurchasePaise >= 0
+        && line.qty is int
+        && line.qty > 0
+        && line.qty <= 99
+        && productData(line.productId) != null
+        && productData(line.productId).active == true
+        && productData(line.productId).pricePaise is int
+        && line.priceAtPurchasePaise == productData(line.productId).pricePaise
+        && productData(line.productId).stock is int
+        && line.qty <= productData(line.productId).stock;
+    }
+
+    // Shipping the order SHOULD have: same logic as core/pricing.js
+    // (no fee on a fully-discounted cart; flat fee below the threshold).
+    function expectedShippingPaise(order) {
+      return ((order.itemsSubtotalPaise - order.discountPaise) > 0
+              && (order.itemsSubtotalPaise - order.discountPaise) < freeShippingFromPaise())
+        ? flatShippingPaise()
+        : 0;
+    }
+
+    // The discount a coupon SHOULD give for this order (−1 = invalid).
+    // Integer arithmetic mirrors the client's Math.round in pricing.js.
+    function couponDiscountFor(order) {
+      return couponData(order.couponCode) != null
+        && couponData(order.couponCode).active == true
+        && (couponData(order.couponCode).expiresAt == null || now() < couponData(order.couponCode).expiresAt)
+        && (couponData(order.couponCode).minOrderPaise == null || order.itemsSubtotalPaise >= couponData(order.couponCode).minOrderPaise)
+        ? ((couponData(order.couponCode).type == 'percent' && couponData(order.couponCode).value is int && couponData(order.couponCode).value >= 1 && couponData(order.couponCode).value <= 100)
+            ? min((order.itemsSubtotalPaise * couponData(order.couponCode).value + 50) / 100, order.itemsSubtotalPaise)
+            : (couponData(order.couponCode).type == 'flat' && couponData(order.couponCode).value is int && couponData(order.couponCode).value >= 1)
+              ? min(couponData(order.couponCode).value, order.itemsSubtotalPaise)
+              : -1)
+        : -1;
+    }
+
+    // The order's discount is honest iff it equals the coupon's re-computed
+    // value (after the coupon's max-cap), or is 0 with no code attached.
+    function couponOk(order) {
+      return order.discountPaise == 0
+        ? order.couponCode == null
+        : couponDiscountFor(order) >= 0
+          && order.discountPaise == min(
+               couponDiscountFor(order),
+               (couponData(order.couponCode).maxDiscountPaise != null
+                && couponData(order.couponCode).maxDiscountPaise > 0)
+                 ? couponData(order.couponCode).maxDiscountPaise
+                 : couponDiscountFor(order));
     }
 
     // ---------- products ----------
@@ -78,17 +158,44 @@ service cloud.firestore {
     match /orders/{orderId} {
       // customers read their own; admins read all
       allow read: if isOwner(resource.data.userId) || isAdmin();
-      // customers create order REQUESTS for themselves only; admins may also create
+      // Customers create order REQUESTS for themselves only. Every amount
+      // is re-derived here from the live catalog, so a tampered client
+      // cannot place an order at a lower price, for missing stock, with a
+      // phantom discount, or with wrong shipping (COD today; the same
+      // gate stands before any future payment method).
       allow create: if signedIn()
                     && request.resource.data.userId == request.auth.uid
                     && request.resource.data.status == 'placed'
                     && request.resource.data.paymentStatus == 'NOT_IMPLEMENTED'
+                    && request.resource.data.items is list
                     && request.resource.data.items.size() > 0
-                    && request.resource.data.totalPaise is number
-                    && request.resource.data.totalPaise >= 0
+                    && request.resource.data.items.size() <= 50
+                    && request.resource.data.items.all(line, orderLineOk(line))
+                    // Subtotal honesty, free-tier style: the rules language
+                    // cannot sum a list (no fold/recursion), so the claimed
+                    // subtotal must be at least every line's true
+                    // contribution. That is exact for single-line orders and
+                    // bounds multi-line claims; combined with per-line
+                    // catalog pricing and the COD admin review before
+                    // packing, it closes the free/prepayment holes.
+                    && request.resource.data.itemsSubtotalPaise is int
+                    && request.resource.data.itemsSubtotalPaise >= 0
+                    && request.resource.data.items.all(line, request.resource.data.itemsSubtotalPaise >= line.priceAtPurchasePaise * line.qty)
+                    && request.resource.data.discountPaise is int
+                    && request.resource.data.discountPaise >= 0
+                    && request.resource.data.discountPaise <= request.resource.data.itemsSubtotalPaise
+                    && couponOk(request.resource.data)
+                    && request.resource.data.shippingPaise == expectedShippingPaise(request.resource.data)
+                    && request.resource.data.totalPaise == request.resource.data.itemsSubtotalPaise - request.resource.data.discountPaise + request.resource.data.shippingPaise
                     && request.resource.data.shippingAddress.keys().hasAll(['receiver','phone','line1','city','state','pincode']);
-      // customers may not modify orders after creation; admins manage the flow
-      allow update: if isAdmin();
+      // Customers may cancel their OWN order while it is still 'placed'
+      // (status + history only — no re-pricing). Admins manage everything.
+      allow update: if isAdmin()
+                    || (isOwner(resource.data.userId)
+                        && resource.data.status == 'placed'
+                        && request.resource.data.status == 'cancelled'
+                        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['status','updatedAt','statusHistory'])
+                        && request.resource.data.statusHistory.size() <= resource.data.statusHistory.size() + 1);
       allow delete: if isAdmin();
     }
 
@@ -123,5 +230,3 @@ service cloud.firestore {
     }
   }
 }
-
-
