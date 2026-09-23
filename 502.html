@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>502 — Bad Gateway · Kadai</title>
+  <meta name="description" content="Temporary communication glitch between cloud proxy servers. Check your connection or retry." />
+  <link rel="icon" type="image/png" href="assets/kadai-logo.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,500;9..144,600&display=swap" />
+  <link rel="stylesheet" href="css/tokens.css" />
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/layout.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/pages.css" />
+  <link rel="stylesheet" href="css/tailwind.css" />
+  <script type="module" src="js/main.js"></script>
+</head>
+<body class="overflow-x-hidden" data-page="error" data-status="502">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="site-shell">
+    <header class="site-header"></header>
+    <main id="main" class="site-main min-w-0">
+      <div class="container min-w-0">
+        
+        <div class="error-page-wrap">
+          <div class="error-hero-card">
+            
+            <div class="error-badge-row">
+              <span class="badge badge--save">Status 502</span>
+              <span class="status-chip status-chip--placed">Bad Gateway</span>
+            </div>
+
+            <div class="error-code error-code--terracotta">502</div>
+            <h1 class="error-title">Temporary gateway disruption</h1>
+            <p class="error-lede">
+              The server encountered an upstream network timeout or communication glitch while reaching our cloud services. This usually resolves automatically in a few seconds.
+            </p>
+
+            <!-- Real-time network indicator -->
+            <div style="margin-bottom:var(--space-5)">
+              <div class="status-indicator">
+                <span class="status-indicator__dot js-connection-dot"></span>
+                <span class="js-connection-label">Checking network connectivity…</span>
+              </div>
+            </div>
+
+            <div class="error-actions">
+              <button type="button" class="btn js-check-connection">
+                <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" style="margin-right:6px"><path d="M23 4v6h-6M1 20v-6h6M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+                Check connection &amp; reload
+              </button>
+              <a class="btn btn--secondary" href="index.html">Storefront Home</a>
+            </div>
+
+            <div class="error-suggestions">
+              <p class="error-suggestions__title">Troubleshooting Steps</p>
+              <div class="error-chips">
+                <span class="error-chip">1. Wait 5–10 seconds</span>
+                <span class="error-chip">2. Refresh your browser</span>
+                <span class="error-chip">3. Check your Wi-Fi or mobile data</span>
+              </div>
+            </div>
+
+            <div class="error-support-box">
+              <p>
+                <strong>Were you placing a Cash on Delivery order?</strong><br />
+                If you already received an order number on your screen, your request is safely registered. You can verify anytime at <a href="tel:+919876543210">+91 98765 43210</a> or by checking <a href="orders.html">Your Orders</a>.
+              </p>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </main>
+    <footer class="site-footer"></footer>
+  </div>
+</body>
+</html>

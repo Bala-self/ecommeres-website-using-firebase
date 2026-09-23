@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>500 — Server Error · Kadai</title>
+  <meta name="description" content="An unexpected server error occurred while processing your request. Our technical team has been notified." />
+  <link rel="icon" type="image/png" href="assets/kadai-logo.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,500;9..144,600&display=swap" />
+  <link rel="stylesheet" href="css/tokens.css" />
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/layout.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/pages.css" />
+  <link rel="stylesheet" href="css/tailwind.css" />
+  <script type="module" src="js/main.js"></script>
+</head>
+<body class="overflow-x-hidden" data-page="error" data-status="500">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="site-shell">
+    <header class="site-header"></header>
+    <main id="main" class="site-main min-w-0">
+      <div class="container min-w-0">
+        
+        <div class="error-page-wrap">
+          <div class="error-hero-card">
+            
+            <div class="error-badge-row">
+              <span class="badge badge--oos">Status 500</span>
+              <span class="status-chip status-chip--placed">Unexpected Error</span>
+            </div>
+
+            <div class="error-code error-code--terracotta">500</div>
+            <h1 class="error-title">Something unexpected happened</h1>
+            <p class="error-lede">
+              Our cloud database or backend encountered a temporary issue while fulfilling your request. 
+              Don't worry—your shopping cart items and placed orders remain safe and unaffected.
+            </p>
+
+            <div class="error-actions">
+              <button type="button" class="btn js-error-retry">
+                <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" style="margin-right:6px"><path d="M23 4v6h-6M1 20v-6h6M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+                Try again
+              </button>
+              <a class="btn btn--secondary" href="index.html">Return to storefront</a>
+            </div>
+
+            <div class="error-suggestions">
+              <p class="error-suggestions__title">Helpful Links</p>
+              <div class="error-chips">
+                <a class="error-chip" href="cart.html">🛒 View Cart</a>
+                <a class="error-chip" href="orders.html">📦 Track Orders</a>
+                <a class="error-chip" href="products.html">🛍️ Store Catalog</a>
+                <a class="error-chip" href="policies.html#shipping">🚚 Shipping Policy</a>
+              </div>
+            </div>
+
+            <div class="error-support-box">
+              <p>
+                <strong>Need immediate assistance with an ongoing order?</strong><br />
+                Reach our Chennai support desk at <a href="tel:+919876543210">+91 98765 43210</a> or write to <a href="mailto:support@kadai.in">support@kadai.in</a>.
+              </p>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </main>
+    <footer class="site-footer"></footer>
+  </div>
+</body>
+</html>

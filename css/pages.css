@@ -627,3 +627,199 @@
     page-break-inside: avoid;
   }
 }
+
+/* ---- HTTP ERROR PAGES SUITE (404, 403, 401, 500, 502) ------------------- */
+.error-page-wrap {
+  max-width: 680px;
+  margin-inline: auto;
+  padding-block: var(--space-7);
+}
+@media (min-width: 768px) {
+  .error-page-wrap {
+    padding-block: var(--space-8);
+  }
+}
+
+.error-hero-card {
+  background: var(--surface);
+  border: var(--border-hair);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6) var(--space-5);
+  text-align: center;
+  box-shadow: 0 4px 20px rgba(34, 29, 21, 0.05);
+}
+@media (min-width: 640px) {
+  .error-hero-card {
+    padding: var(--space-7) var(--space-6);
+  }
+}
+
+.error-badge-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  margin-bottom: var(--space-3);
+}
+
+.error-code {
+  font-family: var(--font-display);
+  font-size: clamp(3.2rem, 9vw, 4.75rem);
+  font-weight: 600;
+  line-height: 1;
+  color: var(--ink);
+  letter-spacing: -0.02em;
+  margin-bottom: var(--space-2);
+}
+.error-code--terracotta { color: var(--terracotta); }
+.error-code--mustard { color: var(--mustard); }
+.error-code--green { color: var(--green-700); }
+
+.error-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.4rem, 4vw, 1.85rem);
+  color: var(--ink);
+  line-height: 1.25;
+  margin-bottom: var(--space-3);
+}
+
+.error-lede {
+  color: var(--ink-muted);
+  font-size: var(--text-md);
+  line-height: var(--leading-body);
+  max-width: 48ch;
+  margin-inline: auto;
+  margin-bottom: var(--space-6);
+}
+
+.error-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+  margin-bottom: var(--space-6);
+}
+
+/* Embedded search within error page */
+.error-search-box {
+  max-width: 460px;
+  margin-inline: auto;
+  margin-bottom: var(--space-6);
+}
+.error-search-form {
+  position: relative;
+  display: flex;
+}
+.error-search-form input {
+  width: 100%;
+  min-height: 46px;
+  padding: var(--space-2) var(--space-4) var(--space-2) 40px;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-md);
+  background: var(--paper);
+  font-size: var(--text-sm);
+  color: var(--ink);
+}
+.error-search-form input:focus {
+  outline: 2px solid var(--green-700);
+  background: var(--surface);
+  box-shadow: 0 0 0 3px rgba(31, 92, 70, 0.12);
+}
+.error-search-form svg {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--ink-soft);
+  pointer-events: none;
+}
+
+/* Category suggestion chips */
+.error-suggestions {
+  border-top: var(--border-hair);
+  padding-top: var(--space-5);
+  margin-top: var(--space-2);
+}
+.error-suggestions__title {
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: var(--tracking-caps);
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin-bottom: var(--space-3);
+}
+.error-chips {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+.error-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: var(--paper);
+  border: 1px solid var(--border);
+  color: var(--ink);
+  font-size: var(--text-xs);
+  font-weight: 500;
+  text-decoration: none;
+  transition: background-color var(--transition-fast), border-color var(--transition-fast), transform var(--transition-fast);
+}
+.error-chip:hover {
+  background: var(--paper-deep);
+  border-color: var(--border-strong);
+  transform: translateY(-1px);
+}
+
+/* Support or diagnostic callout inside error card */
+.error-support-box {
+  background: var(--paper);
+  border-left: 4px solid var(--mustard);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  padding: var(--space-3) var(--space-4);
+  text-align: left;
+  font-size: var(--text-xs);
+  color: var(--ink-muted);
+  margin-top: var(--space-5);
+}
+.error-support-box strong {
+  color: var(--ink);
+}
+.error-support-box a {
+  color: var(--green-700);
+  font-weight: 600;
+  text-decoration: none;
+}
+.error-support-box a:hover {
+  text-decoration: underline;
+}
+
+/* Ping status indicator for 502 */
+.status-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--text-xs);
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: var(--paper);
+  border: 1px solid var(--border);
+}
+.status-indicator__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--warning);
+}
+.status-indicator__dot--online {
+  background: var(--success);
+}
+.status-indicator__dot--offline {
+  background: var(--error);
+}
+
