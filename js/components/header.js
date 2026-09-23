@@ -153,29 +153,45 @@ export function renderFooter() {
   const footer = document.querySelector(".site-footer");
   if (!footer) return;
   footer.innerHTML = `
-    <div class="container footer-grid">
-      <div class="footer-brand">
-        <p class="brand__name">Kadai</p>
-        <p>Discover products across categories and order online with convenient delivery.</p>
-        <p class="footer-muted">Serving customers in Chennai, Tamil Nadu</p>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <p class="brand__name">Kadai</p>
+          <p>Discover dependable everyday merchandise for the home with convenient delivery and 100% Cash on Delivery.</p>
+          <p class="footer-muted">Serving Chennai &amp; Tamil Nadu · GST Included</p>
+        </div>
+        <div>
+          <h2 class="footer-heading">Customer Service</h2>
+          <ul class="footer-links">
+            <li><a href="policies.html#shipping">Shipping &amp; Delivery</a></li>
+            <li><a href="policies.html#returns">7-Day Returns &amp; Refund</a></li>
+            <li><a href="policies.html#cancellation">Cancellation Policy</a></li>
+            <li><a href="policies.html#contact">Contact &amp; Support</a></li>
+            <li><a href="policies.html#contact">Grievance Redressal</a></li>
+          </ul>
+        </div>
+        <div>
+          <h2 class="footer-heading">Legal &amp; Policies</h2>
+          <ul class="footer-links">
+            <li><a href="policies.html#terms">Terms &amp; Conditions</a></li>
+            <li><a href="policies.html#privacy">Privacy Policy</a></li>
+            <li><a href="policies.html#cookies">Cookie &amp; Storage Policy</a></li>
+            <li><a href="policies.html">All Store Policies</a></li>
+          </ul>
+        </div>
+        <div>
+          <h2 class="footer-heading">Explore</h2>
+          <ul class="footer-links">
+            <li><a href="products.html">All Products</a></li>
+            <li><a href="cart.html">Shopping Cart</a></li>
+            <li><a href="wishlist.html">Wishlist</a></li>
+            <li><a href="orders.html">Track Orders</a></li>
+          </ul>
+        </div>
       </div>
-      <div>
-        <h2 class="footer-heading">Explore</h2>
-        <ul class="footer-links">
-          <li><a href="products.html">All products</a></li>
-          <li><a href="cart.html">Cart</a></li>
-          <li><a href="wishlist.html">Wishlist</a></li>
-          <li><a href="orders.html">Track orders</a></li>
-        </ul>
-      </div>
-      <div>
-        <h2 class="footer-heading">Shopping information</h2>
-        <ul class="footer-links">
-          <li>Cash on delivery</li>
-          <li>Returns accepted within 7 days</li>
-          <li>Prices include GST</li>
-        </ul>
-        <p class="footer-muted">Cash on delivery is currently available. Online payment is coming soon.</p>
+      <div class="footer-bottom">
+        <div>&copy; 2026 Kadai Retail E-Commerce. All Rights Reserved.</div>
+        <div>Anna Nagar West, Chennai, Tamil Nadu 600040 &middot; Cash on Delivery Available</div>
       </div>
     </div>
   `;

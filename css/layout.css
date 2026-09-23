@@ -260,7 +260,7 @@
   gap: var(--space-6);
   grid-template-columns: 1fr;
 }
-@media (min-width: 768px) { .footer-grid { grid-template-columns: 2fr 1fr 1fr; } }
+@media (min-width: 768px) { .footer-grid { grid-template-columns: 1.6fr 1fr 1fr 1fr; gap: var(--space-6); } }
 .footer-brand .brand__name { font-family: var(--font-display); font-size: var(--text-xl); color: var(--ink); }
 .footer-brand p { margin-top: var(--space-2); max-width: 36ch; }
 .footer-heading {
@@ -277,15 +277,32 @@
 .footer-links a:hover { color: var(--ink); text-decoration: underline; }
 .footer-muted { font-size: var(--text-xs); color: var(--ink-soft); margin-top: var(--space-3); }
 
+.footer-bottom {
+  margin-top: var(--space-6);
+  padding-top: var(--space-4);
+  border-top: var(--border-hair);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  align-items: center;
+  justify-content: space-between;
+  font-size: var(--text-xs);
+  color: var(--ink-soft);
+  text-align: center;
+}
+@media (min-width: 768px) {
+  .footer-bottom {
+    flex-direction: row;
+    text-align: left;
+  }
+}
+
 /* Keep the mobile footer compact without clipping its navigation. The
    content can grow naturally on very short screens, but it starts at roughly
    30% of the viewport height and stays vertically balanced. */
 @media (max-width: 767px) {
   .site-footer {
-    min-height: 30dvh;
-    display: flex;
-    align-items: center;
-    padding-block: var(--space-4);
+    padding-block: var(--space-5);
   }
 
   .footer-grid {
@@ -299,8 +316,6 @@
   }
 
   .footer-brand .brand__name { margin-top: 0; }
-  .footer-brand .footer-muted,
-  .footer-grid > div:nth-child(3) .footer-muted { display: none; }
   .footer-heading { margin-bottom: var(--space-2); }
   .footer-links { gap: var(--space-1); }
   .footer-links a,
